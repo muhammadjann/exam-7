@@ -6,7 +6,6 @@ from apps.shared.models import AbstractModel
 
 
 class User(AbstractModel, AbstractUser):
-    phone_number = PhoneNumberField(unique=True)
+    email = models.EmailField()
     is_active = models.BooleanField(default=False)
     activation_token = models.CharField(max_length=100, blank=True)
-

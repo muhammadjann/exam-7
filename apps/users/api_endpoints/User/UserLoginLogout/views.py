@@ -17,7 +17,7 @@ class UserLoginView(APIView):
             username = serializer.validated_data["username"]
             password = serializer.validated_data["password"]
             user = authenticate(username=username, password=password)
-            if user:
+            if not user.is_active:
                 if user.deleted_at is not None:
                     raise PermissionDenied("User account is deleted")
                 else:
@@ -35,7 +35,9 @@ class UserLoginView(APIView):
 
 
 class UserLogoutView(APIView):
-    authentication_classes = [JWTAuthentication, ]
+    authentication_classes = [
+        JWTAuthentication,
+    ]
 
     def post(self, request):
         try:

@@ -6,11 +6,13 @@ from rest_framework.views import APIView
 
 class ActivateAccountView(APIView):
     def get(self, request, token):
-        user = get_object_or_404(CustomUser, activation_token=token)
+        user = get_object_or_404(User, activation_token=token)
         user.is_active = True
-        user.activation_token = ''
+        user.activation_token = ""
         user.save()
-        return Response({'message': 'Account activated successfully'}, status=status.HTTP_200_OK)
+        return Response(
+            {"message": "Account activated successfully"}, status=status.HTTP_200_OK
+        )
 
 
-__all__ = ('ActivateAccountView',)
+__all__ = ("ActivateAccountView",)

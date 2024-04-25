@@ -10,6 +10,8 @@ def send_activation_email(sender, instance, created, **kwargs):
     if created:
         instance.activation_token = get_random_string(length=30)
         instance.save()
-        subject = 'Activate Your Account'
-        message = render_to_string('activation_email.html', {'token': instance.activation_token})
-        send_mail(subject, message, 'from@example.com', [instance.email])
+        subject = "Activate Your Account"
+        message = render_to_string(
+            "activation_email.html", {"token": instance.activation_token}
+        )
+        send_mail(subject, message, "from@example.com", [instance.email])
